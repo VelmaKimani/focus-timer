@@ -8,20 +8,20 @@ import usercircle from '../images/User_cicrle_light.svg'
 export default function Navbar() {
   return (
     <nav>
-        <NavLink className="logo" to="/" activeClassName="active-link">
+        <NavLink className="logo" to="/">
             <div>
                 <img src={checkring} alt="logo"/>
             </div>
-            <div className="title"><span>Pomodoro</span></div>
+            <div className="title">Pomodoro</div>
         </NavLink>
         <div className="pages">
-            <NavLink className="navbutton" to="/report" activeClassName="active-link">
+            <NavLink className="navbutton" to="/report">
                 <img src={reportimg} alt="reporticon"/>
-                <span>Report</span>
+                Report
             </NavLink>
-            <NavLink className="navbutton" to="/login" activeClassName="active-link">
+            <NavLink className="navbutton" to="/login">
                 <img src={usercircle} alt="userimg"/>
-                <span>Login</span>
+                Login
             </NavLink>
         </div>
     </nav>
