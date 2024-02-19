@@ -1,0 +1,41 @@
+nav{
+    width: 70vw;
+    min-width: 450px;
+    height: 74px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    border-radius: 8px;
+    align-items: center;
+    padding: 15px;
+}
+.logo{
+    display: flex;
+}
+.logo img{
+    height: 48px;
+}
+.title{
+    line-height: 48px;
+    margin-left: 10px;
+    font-size: 32px;
+    font-weight: 500;
+}
+.pages{
+    display: flex;
+}
+.navbutton{
+    display: flex;
+    height: 40px;
+    background-color: #A7C7E7;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.navbutton img{
+    margin-right: 5px;
+}
