@@ -39,3 +39,9 @@ nav{
 .navbutton img{
     margin-right: 5px;
 }
+span{
+    text-decoration: none;
+}
+.active-link {
+    text-decoration: none; /* Remove underline */
+}

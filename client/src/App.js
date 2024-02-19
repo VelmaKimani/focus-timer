@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router,Routes, Route} from 'react-router-dom'
 import './App.css';
 import Layout from './layouts/Layout';
 import Home from './pages/Home';
@@ -9,14 +9,16 @@ import Report from './pages/Report';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout/>}>
-        <Route index element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
-        <Route path="/report" element={<Report/>}/>
-      </Route>
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/report" element={<Report/>}/>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
