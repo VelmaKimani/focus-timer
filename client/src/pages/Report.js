@@ -41,9 +41,10 @@ export default function Report() {
                     <table>
                         <tr className="trspacer"></tr>
                         <tr>
-                          <th style={{width:'25%'}}>Date</th>
+                          <th style={{width:'15%'}}>Date</th>
                             <th style={{width:'25%'}}>Project/Task</th>
-                            <th style={{width:'15%'}}>Time</th>
+                            <th style={{width:'10%'}}>Time</th>
+                            <th style={{width:'15%'}}>Category</th>
                             <th style={{width:'35%'}}>Description</th>
                         </tr>
                         <tr className="trspacer"></tr>
@@ -53,6 +54,7 @@ export default function Report() {
                             </td>
                             <td>Shopping</td>
                             <td>12 hrs</td>
+                            <td>Personal</td>
                             <td>Shop at Naivas</td>
                         </tr>
                         <tr className="trspacer"></tr>
@@ -62,6 +64,7 @@ export default function Report() {
                             </td>
                             <td>Shopping</td>
                             <td>12 hrs</td>
+                            <td>Personal</td>
                             <td>Shop at Naivas</td>
                         </tr>
                         <tr className="trspacer"></tr>
@@ -71,6 +74,7 @@ export default function Report() {
                             </td>
                             <td>Shopping</td>
                             <td>12 hrs</td>
+                            <td>Personal</td>
                             <td>Shop at Naivas</td>
                         </tr>
                         <tr className="trspacer"></tr>
