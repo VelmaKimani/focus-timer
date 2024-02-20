@@ -1,0 +1,128 @@
+h3{
+    color: black;
+    font-size: 24px;
+    font-weight:600;
+    font-family: "Outfit", sans-serif;
+}
+h4{
+    font-family: "Outfit", sans-serif;
+    text-align: left;
+    color: black;
+    font-size: 18px;
+}
+.reportsect{
+    width: 75%;
+    min-width: 500px;
+    margin: auto;
+}
+.cardssec{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 40px;
+    width: 100%;
+}
+.card{
+    width: 348px;
+    min-width: 200px;
+    height: 180px;
+    background-color: white;
+    border-radius: 8px;
+    position: relative;
+    padding: 10px;
+    border: 2px solid #A7C7E7;
+}
+.card:hover{
+    animation:animate__shakeY;
+}
+.cardno{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 75px;
+    height: 75px;
+    font-size: 96px;
+    font-weight: 600;
+    color: black;
+    font-family: "Outfit", sans-serif;
+}
+.cardtext{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    font-family: "Outfit", sans-serif;
+}
+.clock{
+    position: absolute;
+    top: 15px;
+    left: 20px;
+}
+.activitycont{
+    text-align: center;
+}
+.logcont{
+    text-align: center;
+    margin-top: 40px;
+    min-width: 300px;
+}
+.filter{
+    background-color: white;
+    border-radius: 8px;
+    min-width: 360px;
+    min-height: 66px;
+    max-height: 66px;
+    justify-content: space-between;
+    display: flex;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-top: 8px;
+    align-items: center;
+}
+.tablecont{
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255,0.3);
+    margin-bottom: 50px;
+}
+table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+}
+hr{
+    height: 5px;
+}
+th{
+    background-color: #A7C7E7;
+    color: black;
+    text-align: left;
+    padding: 8px;
+}
+.row{
+    border-radius: 8px;
+    overflow: hidden;
+    color: black;
+}
+.row:hover{
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    color: black;
+    transition: 0.15s;
+}
+td, th{
+    text-align: left;
+    padding: 8px;
+    font-size: 14px;
+}
+.trspacer {
+    height: 21px; /* Adjust the height as needed */
+}
+@media (max-width: 768px)and (min-width:331px){
+    .card {
+      width: calc(100% - 20px);
+    }
+}
