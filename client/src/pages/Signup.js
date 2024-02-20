@@ -6,6 +6,7 @@ import message from '../images/Message.svg'
 import password from '../images/password.svg'
 
 export default function Signup() {
+  
   return (
     <form>
       <p class="title">Sign Up</p>
