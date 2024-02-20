@@ -68,4 +68,5 @@ button:hover{
     color: #148aff;
     font-weight: 700;
     transition: 0.15s;
+    text-decoration: none;
 }
