@@ -35,10 +35,11 @@
     margin: auto;
 }
 .start{
+    display: flex;
+    justify-content: center; /* align horizontally */
+    align-items: center; /* align vertically */
     width: 218px;
-    height: 101px;
-    text-align: center;
-    align-content: center;
+    height: 80px;
     color: white;
     background-color: #A7C7E7;
     border-radius: 8px;

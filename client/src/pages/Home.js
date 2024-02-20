@@ -12,9 +12,9 @@ export default function Home() {
         <div className='timer'>
           <div className='time'>25:00</div>
         </div>
-        <div className='start'>
+        <button className='start'>
           START
-        </div>
+        </button>
         <p className='p'># Time to get Busy</p>
       </div>
       <div className='taskscontainer'>
