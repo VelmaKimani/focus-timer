@@ -58,11 +58,12 @@
     align-items: center;
 }
 .timeinput input{
-    width: 200px;
+    width: 100px;
     margin: 0 10px;
     border: 2px solid #A7C7E7;
     line-height: 30px;
     border-radius: 8px;
+    padding-left: 5px;
 }
 .p{
     font-size: 32px;

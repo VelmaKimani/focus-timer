@@ -22,6 +22,7 @@ export default function Home() {
         <div className='timeinput'>
           <input type='number' placeholder='Hrs' min="0"></input>
           <input type="number" placeholder='Mins' min="0" max="59"></input>
+          <input type="number" placeholder='Seconds' min="0" max="60"></input>
         </div>
         <p className='p'># Time to get Busy</p>
       </div>
