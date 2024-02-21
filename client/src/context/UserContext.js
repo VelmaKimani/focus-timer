@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
 import Swal from "sweetalert2";
 
 export const UserContext = createContext()
@@ -6,6 +7,8 @@ export const UserContext = createContext()
 export default function UserProvider({children}) {
 
   const [authToken, setAuthToken] = useState('');
+  const navigate = useNavigate();
+
 
   function Signup(username,email,password){
     fetch('/api/auth/signup', {
@@ -23,7 +26,8 @@ export default function UserProvider({children}) {
             title: 'Your account has been created, login.',
             showConfirmButton: false,
             timer: 1500,
-          })
+          });
+          navigate('/login')
         } else if (res.status === 400) {
           Swal.fire({
             icon: 'error',
@@ -61,6 +65,7 @@ export default function UserProvider({children}) {
         showConfirmButton: false,
         timer: 1500,
       });
+      navigate('/')
     })
     .catch((error) => {
       Swal.fire({
