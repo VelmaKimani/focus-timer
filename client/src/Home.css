@@ -7,7 +7,7 @@
 .timercontainer{
     width: 100%;
     min-width: 500px;
-    height: 459px;
+    height: 519px;
     background-color: white;
     border-radius: 8px;
     padding-top: 20px;
@@ -48,6 +48,21 @@
     font-size: 64px;
     font-weight: 700;
     padding: 2px;
+}
+.timeinput{
+    width: 500px;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center;
+}
+.timeinput input{
+    width: 200px;
+    margin: 0 10px;
+    border: 2px solid #A7C7E7;
+    line-height: 30px;
+    border-radius: 8px;
 }
 .p{
     font-size: 32px;

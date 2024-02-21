@@ -5,7 +5,7 @@ import deleteIcon from '../images/Trash.svg'
 import addIcon from '../images/Add.svg'
 
 export default function Home() {
-  
+
   return (
     <div  className="home">
       <div className='timercontainer'>
@@ -19,6 +19,10 @@ export default function Home() {
         <button className='start'>
           START
         </button>
+        <div className='timeinput'>
+          <input type='number' placeholder='Hrs' min="0"></input>
+          <input type="number" placeholder='Mins' min="0" max="59"></input>
+        </div>
         <p className='p'># Time to get Busy</p>
       </div>
       <div className='taskscontainer'>
