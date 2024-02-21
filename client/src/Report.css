@@ -118,6 +118,62 @@ td, th{
     padding: 8px;
     font-size: 14px;
 }
+/* Style for the dropdown button */
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+  
+/* Container <div> - needed to position the dropdown content */
+.dropdown {
+    width: 100%;
+    border: 2px solid white;
+    border-radius: 8px;
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    width: 100%;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    width: 80%;
+    margin: auto;
+    border-radius: 8px;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #A7C7E7;
+}
 .trspacer {
     height: 21px; /* Adjust the height as needed */
 }
