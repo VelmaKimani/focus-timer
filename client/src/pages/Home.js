@@ -60,7 +60,7 @@ export default function Home() {
         </div>
         <form className='addtasksec'>
           <input type='text' placeholder='What are you working on?'/>
-          <input type='number' placeholder='Time in minutes'/>
+          <input type='text' placeholder='HH:MM'/>
           <input type='date' placeholder='date'/>
           <input type='text' placeholder='Categorize your task'/>
           <input type='text' placeholder='Add a Note/Description?'/>
