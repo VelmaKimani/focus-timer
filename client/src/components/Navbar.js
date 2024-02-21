@@ -12,9 +12,12 @@ export default function Navbar() {
             <div>
                 <img src={checkring} alt="logo"/>
             </div>
-            <div className="title">Pomodoro</div>
+            <div className="title">FocusTimer</div>
         </NavLink>
         <div className="pages">
+            <NavLink className="navbutton" to="/">
+                Home
+            </NavLink>
             <NavLink className="navbutton" to="/report">
                 <img src={reportimg} alt="reporticon"/>
                 Report

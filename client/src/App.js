@@ -5,20 +5,29 @@ import Home from './pages/Home';
 import Login  from './pages/Login';
 import Signup from './pages/Signup';
 import Report from './pages/Report';
+import UserProvider from './context/UserContext';
+import TasksProvider from './context/TasksContext';
+import ReportProvider from './context/ReportContext';
 
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<Home/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/signup" element={<Signup/>}/>
-          <Route path="/report" element={<Report/>}/>
-        </Route>
-      </Routes>
-    </Router>
+    <UserProvider>
+      <TasksProvider>
+        <ReportProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Layout/>}>
+              <Route index element={<Home/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<Signup/>}/>
+              <Route path="/report" element={<Report/>}/>
+            </Route>
+          </Routes>
+        </Router>
+        </ReportProvider>
+      </TasksProvider>
+    </UserProvider>
   );
 }
 
