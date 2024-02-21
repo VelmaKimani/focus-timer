@@ -35,6 +35,15 @@ export default function Report() {
                 <button>Weekly</button>
                 <button> Monthly</button>
             </div>
+            <div class="dropdown">
+                <div class="dropbtn">Category</div>
+                <div class="dropdown-content">
+                    <a href="#">All</a>
+                    <a href="#">Personal</a>
+                    <a href="#">Work</a>
+                    <a href="#">Family</a>
+                </div>
+            </div>
             <div>
                 <h4>Details:</h4>
                 <div className="tablecont">

@@ -5,19 +5,25 @@ import deleteIcon from '../images/Trash.svg'
 import addIcon from '../images/Add.svg'
 
 export default function Home() {
+
   return (
     <div  className="home">
       <div className='timercontainer'>
         <div className='breaksect'>
-          <button>Break</button>
+          <button>Pause</button>
           <button>Continue</button>
         </div>
         <div className='timer'>
-          <div className='time'>25:00</div>
+          <div className='time'>00:25:00</div>
         </div>
         <button className='start'>
           START
         </button>
+        <div className='timeinput'>
+          <input type='number' placeholder='Hrs' min="0"></input>
+          <input type="number" placeholder='Mins' min="0" max="59"></input>
+          <input type="number" placeholder='Seconds' min="0" max="60"></input>
+        </div>
         <p className='p'># Time to get Busy</p>
       </div>
       <div className='taskscontainer'>
@@ -60,7 +66,7 @@ export default function Home() {
         </div>
         <form className='addtasksec'>
           <input type='text' placeholder='What are you working on?'/>
-          <input type='number' placeholder='Time in minutes'/>
+          <input type='text' placeholder='HH:MM'/>
           <input type='date' placeholder='date'/>
           <input type='text' placeholder='Categorize your task'/>
           <input type='text' placeholder='Add a Note/Description?'/>
