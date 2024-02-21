@@ -15,16 +15,16 @@ function App() {
     <UserProvider>
       <TasksProvider>
         <ReportProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout/>}>
-              <Route index element={<Home/>}/>
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/signup" element={<Signup/>}/>
-              <Route path="/report" element={<Report/>}/>
-            </Route>
-          </Routes>
-        </Router>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout/>}>
+                <Route index element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/signup" element={<Signup/>}/>
+                <Route path="/report" element={<Report/>}/>
+              </Route>
+            </Routes>
+          </Router>
         </ReportProvider>
       </TasksProvider>
     </UserProvider>
