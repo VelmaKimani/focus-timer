@@ -11,6 +11,10 @@ export default function UserProvider({children}) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(user); // Log user details whenever the user state changes
+  }, [user]);
+
+  useEffect(() => {
     // Fetch user details if authToken exists in sessionStorage
     if (authToken) {
       fetchUserDetails();

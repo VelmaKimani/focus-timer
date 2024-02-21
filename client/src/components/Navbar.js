@@ -30,10 +30,9 @@ export default function Navbar() {
                 <>
                     <div className="navbutton" onClick={Logout}>
                         <img src={usercircle} alt="userimg" />
-                        <div>
-                            {user && <div className="username">{user.username}</div>}
-                        </div>
                         Logout
+                        
+                        {user && <div className="username">{user.username}</div>}
                     </div>
                     
                 </>
