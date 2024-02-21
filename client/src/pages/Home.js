@@ -5,15 +5,16 @@ import deleteIcon from '../images/Trash.svg'
 import addIcon from '../images/Add.svg'
 
 export default function Home() {
+  
   return (
     <div  className="home">
       <div className='timercontainer'>
         <div className='breaksect'>
-          <button>Break</button>
+          <button>Pause</button>
           <button>Continue</button>
         </div>
         <div className='timer'>
-          <div className='time'>25:00</div>
+          <div className='time'>00:25:00</div>
         </div>
         <button className='start'>
           START

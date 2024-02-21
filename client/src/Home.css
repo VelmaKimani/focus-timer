@@ -19,7 +19,7 @@
     margin: auto;
 }
 .timer{
-    width: 304px;
+    width: 500px;
     height: 141px;
     background-color: #ECECEC;
     color: black;
@@ -28,7 +28,7 @@
     margin-top: 20px;
 }
 .time{
-    width: 264px;
+    width: 400px;
     height: 121px;
     font-size: 96px;
     font-weight: 700;
