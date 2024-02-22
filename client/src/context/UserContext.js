@@ -20,13 +20,13 @@ export default function UserProvider({children}) {
     if (authToken) {
       fetchUserDetails();
     }
-  }, [authToken]);
+  }, [authToken, fetchUserDetails]);
 
   useEffect(() => {
-    if (authToken && user.logged_in_as) {
+    if (authToken && user && user.logged_in_as) {
       fetchUserById(user.logged_in_as);
     }
-  }, [authToken, user.logged_in_as]);
+  }, [authToken, user, fetchUserById]);
 
   function fetchUserDetails() {
     // Fetch user details using authToken
