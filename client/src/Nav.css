@@ -49,3 +49,9 @@ span{
 .active-link {
     text-decoration: none; /* Remove underline */
 }
+.username{
+    font-size: 16px;
+    margin: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
