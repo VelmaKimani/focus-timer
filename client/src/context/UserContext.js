@@ -7,7 +7,10 @@ export const UserContext = createContext()
 export default function UserProvider({children}) {
 
   const [authToken, setAuthToken] = useState('');
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState([]);
+  const [userData, setUserData]= useState([])
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,8 +21,16 @@ export default function UserProvider({children}) {
     // Fetch user details if authToken exists in sessionStorage
     if (authToken) {
       fetchUserDetails();
+
     }
-  }, [authToken]);
+  }, [authToken, fetchUserDetails]);
+
+  useEffect(() => {
+    if (authToken && user && user.logged_in_as) {
+      fetchUserById(user.logged_in_as);
+    }
+  }, [authToken, user, fetchUserById]);
+
 
   function fetchUserDetails() {
     // Fetch user details using authToken
@@ -29,11 +40,37 @@ export default function UserProvider({children}) {
         Authorization: `Bearer ${authToken}`,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else if (res.status === 401) {
+          throw new Error('Unauthorized');
+        } else {
+          throw new Error('Error fetching user details');
+        }
+      })
       .then((userData) => setUser(userData))
       .catch((error) => console.error('Error fetching user details:', error));
   }
 
+
+  function fetchUserById(userId) {
+    fetch(`/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Error fetching user details');
+        }
+      })
+      .then((userData) => setUserData(userData))
+      .catch((error) => console.error('Error fetching user details:', error));
+  }
 
   function Signup(username,email,password){
     fetch('/api/auth/signup', {
@@ -134,7 +171,8 @@ export default function UserProvider({children}) {
     });
   }
 
-  const contextData={Signup,Login,Logout,user, authToken, setAuthToken}
+  const contextData={Signup,Login,Logout, userData,user,authToken, setAuthToken}
+
 
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>  )
