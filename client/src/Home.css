@@ -49,10 +49,18 @@
     font-weight: 700;
     padding: 2px;
 }
-.timeinput{
+.duration{
     width: 500px;
     margin: auto;
     margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly; /* Center items horizontally */
+    align-items: center;
+}
+.timeinput{
+    width: 500px;
+    margin: auto;
+    margin-top: 5px;
     display: flex;
     justify-content: center; /* Center items horizontally */
     align-items: center;
