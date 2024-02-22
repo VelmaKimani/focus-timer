@@ -12,22 +12,23 @@ import ReportProvider from './context/ReportContext';
 
 function App() {
   return (
-    <UserProvider>
-      <TasksProvider>
-        <ReportProvider>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Layout/>}>
-                <Route index element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/signup" element={<Signup/>}/>
-                <Route path="/report" element={<Report/>}/>
-              </Route>
-            </Routes>
-          </Router>
-        </ReportProvider>
-      </TasksProvider>
-    </UserProvider>
+    <Router>
+      <UserProvider>
+        <TasksProvider>
+          <ReportProvider>
+              <Routes>
+                <Route path="/" element={<Layout/>}>
+                  <Route index element={<Home/>}/>
+                  <Route path="/login" element={<Login/>}/>
+                  <Route path="/signup" element={<Signup/>}/>
+                  <Route path="/report" element={<Report/>}/>
+                </Route>
+              </Routes>
+          </ReportProvider>
+        </TasksProvider>
+      </UserProvider>
+    </Router>
+    
   );
 }
 

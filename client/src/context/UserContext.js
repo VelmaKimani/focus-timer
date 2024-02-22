@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
+import {useNavigate} from 'react-router-dom'
 import Swal from "sweetalert2";
 
 export const UserContext = createContext()
@@ -6,6 +7,33 @@ export const UserContext = createContext()
 export default function UserProvider({children}) {
 
   const [authToken, setAuthToken] = useState('');
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(user); // Log user details whenever the user state changes
+  }, [user]);
+
+  useEffect(() => {
+    // Fetch user details if authToken exists in sessionStorage
+    if (authToken) {
+      fetchUserDetails();
+    }
+  }, [authToken]);
+
+  function fetchUserDetails() {
+    // Fetch user details using authToken
+    fetch('/api/protected', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((userData) => setUser(userData))
+      .catch((error) => console.error('Error fetching user details:', error));
+  }
+
 
   function Signup(username,email,password){
     fetch('/api/auth/signup', {
@@ -23,7 +51,8 @@ export default function UserProvider({children}) {
             title: 'Your account has been created, login.',
             showConfirmButton: false,
             timer: 1500,
-          })
+          });
+          navigate('/login')
         } else if (res.status === 400) {
           Swal.fire({
             icon: 'error',
@@ -54,6 +83,7 @@ export default function UserProvider({children}) {
     .then((response) => {
       sessionStorage.setItem('authToken', response.token);
       setAuthToken(response.token);
+      fetchUserDetails();// Fetch user details after successful login
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -61,6 +91,7 @@ export default function UserProvider({children}) {
         showConfirmButton: false,
         timer: 1500,
       });
+      navigate('/')
     })
     .catch((error) => {
       Swal.fire({
@@ -70,8 +101,40 @@ export default function UserProvider({children}) {
     });
 
   }
+  function Logout(){
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      if (res.ok) {
+        sessionStorage.removeItem('authToken'); 
+        setAuthToken(''); // Clear authToken state
+        setAuthToken('');
+        setUser(null); // Clear user details
+        navigate('/login'); // Redirect to the login page after logout
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Logged out successfully.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        throw new Error('Logout failed');
+      }
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        text: error.message,
+      });
+    });
+  }
 
-  const contextData={Signup,Login, authToken, setAuthToken}
+  const contextData={Signup,Login,Logout,user, authToken, setAuthToken}
 
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>  )
