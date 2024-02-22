@@ -1,28 +1,114 @@
-import React from 'react'
 import '../Home.css';
+
+import React, { useEffect, useState } from 'react'
+
+import addIcon from '../images/Add.svg'
 import check from '../images/check.svg'
 import deleteIcon from '../images/Trash.svg'
-import addIcon from '../images/Add.svg'
 
 export default function Home() {
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [counting, setCounting] = useState(false);
 
+  useEffect(() => {
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    if (counting && totalSeconds > 0) {
+      const intervalId = setInterval(() => {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          setTimeLeft(totalSeconds);
+          setHours(Math.floor(totalSeconds / 3600));
+          setMinutes(Math.floor((totalSeconds % 3600) / 60));
+          setSeconds(totalSeconds % 60);
+        } else {
+          clearInterval(intervalId);
+          setCounting(false);
+          showNotification();
+        }
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [counting, hours, minutes, seconds]);
+
+  const handleStart = (event) => {
+    event.preventDefault(); 
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    setTimeLeft(totalSeconds);
+    setCounting(true);
+  };
+
+  const handlePause = () => {
+    setCounting(false);
+  };
+
+  const handleContinue = () => {
+    setCounting(true);
+  };
+
+  const handleHoursChange = (e) => {
+    setHours(parseInt(e.target.value));
+  };
+
+  const handleMinutesChange = (e) => {
+    setMinutes(parseInt(e.target.value));
+  };
+
+  const handleSecondsChange = (e) => {
+    setSeconds(parseInt(e.target.value));
+  };
+
+  const formatTime = (time) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+  
+  const showNotification = () => {
+    if (Notification.permission === 'granted') {
+      new alert('Countdown Timer', {
+        body: 'The timer has run out!',
+      });
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          new Notification('Countdown Timer', {
+            body: 'The timer has run out!',
+          });
+        }
+      });
+    }
+  };
+
+  
   return (
     <div  className="home">
       <div className='timercontainer'>
         <div className='breaksect'>
-          <button>Pause</button>
-          <button>Continue</button>
+          <button onClick={handlePause}>Pause</button>
+          <button onClick={handleContinue}>Continue</button>
         </div>
         <div className='timer'>
-          <div className='time'>00:25:00</div>
+          <div className='time'>
+             {formatTime(timeLeft)}
+          </div>
         </div>
-        <button className='start'>
+        <button className='start' onClick={handleStart}>
           START
         </button>
+        <div className='duration'>
+          <label>Hours</label>
+          <label>Minutes</label>
+          <label>Seconds</label>
+        </div>
         <div className='timeinput'>
-          <input type='number' placeholder='Hrs' min="0"></input>
-          <input type="number" placeholder='Mins' min="0" max="59"></input>
-          <input type="number" placeholder='Seconds' min="0" max="60"></input>
+          <input type='number' placeholder='0' min="0" value={hours} onChange={handleHoursChange}></input>
+          <input type="number" placeholder='0' min="0" max="59" value={minutes} onChange={handleMinutesChange}></input>
+          <input type="number" placeholder='0' min="0" max="60" value={seconds} onChange={handleSecondsChange}></input>
         </div>
         <p className='p'># Time to get Busy</p>
       </div>
