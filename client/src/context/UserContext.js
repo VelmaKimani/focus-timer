@@ -7,8 +7,10 @@ export const UserContext = createContext()
 export default function UserProvider({children}) {
 
   const [authToken, setAuthToken] = useState('');
+
   const [user, setUser] = useState([]);
   const [userData, setUserData]= useState([])
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +21,7 @@ export default function UserProvider({children}) {
     // Fetch user details if authToken exists in sessionStorage
     if (authToken) {
       fetchUserDetails();
+
     }
   }, [authToken, fetchUserDetails]);
 
@@ -27,6 +30,7 @@ export default function UserProvider({children}) {
       fetchUserById(user.logged_in_as);
     }
   }, [authToken, user, fetchUserById]);
+
 
   function fetchUserDetails() {
     // Fetch user details using authToken
@@ -48,6 +52,7 @@ export default function UserProvider({children}) {
       .then((userData) => setUser(userData))
       .catch((error) => console.error('Error fetching user details:', error));
   }
+
 
   function fetchUserById(userId) {
     fetch(`/users/${userId}`, {
@@ -167,6 +172,7 @@ export default function UserProvider({children}) {
   }
 
   const contextData={Signup,Login,Logout, userData,user,authToken, setAuthToken}
+
 
   return (
     <UserContext.Provider value={contextData}>{children}</UserContext.Provider>  )

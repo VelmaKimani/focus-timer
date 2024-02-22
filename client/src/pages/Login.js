@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 import '../Signup.css'
 import user from '../images/usernameicon.svg'
 import message from '../images/Message.svg'
+
 import passwordIcon from '../images/password.svg'
 import { UserContext } from '../context/UserContext'
 
@@ -47,6 +48,7 @@ export default function Login() {
           />
         </div>
         <div className="slotcontainer">
+
             <img src={passwordIcon} alt="password"/>
             <input 
             type="password" 
