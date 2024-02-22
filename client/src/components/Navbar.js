@@ -8,7 +8,7 @@ import { UserContext } from '../context/UserContext'
 
 export default function Navbar() {
 
-    const {Logout, authToken, user}= useContext(UserContext) 
+    const {Logout, authToken, userData, user}= useContext(UserContext) 
 
   return (
     <nav>
@@ -32,7 +32,7 @@ export default function Navbar() {
                         <img src={usercircle} alt="userimg" />
                         Logout
                         
-                        {user && <div className="username">{user.username}</div>}
+                        {user && <div className="username">{userData.username}</div>}
                     </div>
                     
                 </>
