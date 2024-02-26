@@ -73,7 +73,7 @@ export default function UserProvider({children}) {
   }
 
   function Signup(username,email,password){
-    fetch('/api/auth/signup', {
+    fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default function UserProvider({children}) {
   }
 
   function Login(username, password) {
-    fetch('/api/auth/login', {
+    fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export default function UserProvider({children}) {
 
   }
   function Logout(){
-    fetch('/api/auth/logout', {
+    fetch('/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
