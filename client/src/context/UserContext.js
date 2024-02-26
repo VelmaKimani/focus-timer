@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useCallback } from 'react'
 import {useNavigate} from 'react-router-dom'
 import Swal from "sweetalert2";
 
@@ -12,6 +12,46 @@ export default function UserProvider({children}) {
   const [userData, setUserData]= useState([])
 
   const navigate = useNavigate();
+
+
+  const fetchUserDetails = useCallback(() => {
+    // Fetch user details using authToken
+    fetch('/api/protected', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else if (res.status === 401) {
+          throw new Error('Unauthorized');
+        } else {
+          throw new Error('Error fetching user details');
+        }
+      })
+      .then((userData) => setUser(userData))
+      .catch((error) => console.error('Error fetching user details:', error));
+  }, [authToken]);
+  
+  const fetchUserById = useCallback((userId) => {
+    fetch(`/users/${userId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error('Error fetching user details');
+        }
+      })
+      .then((userData) => setUserData(userData))
+      .catch((error) => console.error('Error fetching user details:', error));
+  }, [authToken]);
 
   useEffect(() => {
     console.log(user); // Log user details whenever the user state changes
@@ -31,82 +71,48 @@ export default function UserProvider({children}) {
     }
   }, [authToken, user, fetchUserById]);
 
-
-  function fetchUserDetails() {
-    // Fetch user details using authToken
-    fetch('/api/protected', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else if (res.status === 401) {
-          throw new Error('Unauthorized');
-        } else {
-          throw new Error('Error fetching user details');
-        }
-      })
-      .then((userData) => setUser(userData))
-      .catch((error) => console.error('Error fetching user details:', error));
-  }
-
-
-  function fetchUserById(userId) {
-    fetch(`/users/${userId}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error('Error fetching user details');
-        }
-      })
-      .then((userData) => setUserData(userData))
-      .catch((error) => console.error('Error fetching user details:', error));
-  }
-
-  function Signup(username,email,password){
-    fetch('/api/auth/signup', {
+  function Signup(name, email, password) {
+    fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((res) => {
         if (res.ok) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your account has been created, login.',
-            showConfirmButton: false,
-            timer: 1500,
+          return res.json(); // Parse JSON response
+        } else {
+          return res.json().then((data) => {
+            throw new Error(data.message || 'Failed to sign up');
           });
-          navigate('/login')
-        } else if (res.status === 400) {
-          Swal.fire({
-            icon: 'error',
-            text: 'Username or email already exists!',
-          })
         }
       })
-      .catch((err) => console.log(err))
+      .then((data) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your account has been created, login.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate('/login');
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Something went wrong!',
+        });
+      });
   }
 
-  function Login(username, password) {
-    fetch('/api/auth/login', {
+  function Login(name, password) {
+    fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ name, password }),
     })
     .then((res) => {
       if (res.ok) {
@@ -139,7 +145,7 @@ export default function UserProvider({children}) {
 
   }
   function Logout(){
-    fetch('/api/auth/logout', {
+    fetch('/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
