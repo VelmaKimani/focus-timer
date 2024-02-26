@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useCallback } from 'react'
 import {useNavigate} from 'react-router-dom'
 import Swal from "sweetalert2";
 
@@ -13,26 +13,8 @@ export default function UserProvider({children}) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(user); // Log user details whenever the user state changes
-  }, [user]);
 
-  useEffect(() => {
-    // Fetch user details if authToken exists in sessionStorage
-    if (authToken) {
-      fetchUserDetails();
-
-    }
-  }, [authToken, fetchUserDetails]);
-
-  useEffect(() => {
-    if (authToken && user && user.logged_in_as) {
-      fetchUserById(user.logged_in_as);
-    }
-  }, [authToken, user, fetchUserById]);
-
-
-  function fetchUserDetails() {
+  const fetchUserDetails = useCallback(() => {
     // Fetch user details using authToken
     fetch('/api/protected', {
       method: 'GET',
@@ -51,10 +33,9 @@ export default function UserProvider({children}) {
       })
       .then((userData) => setUser(userData))
       .catch((error) => console.error('Error fetching user details:', error));
-  }
-
-
-  function fetchUserById(userId) {
+  }, [authToken]);
+  
+  const fetchUserById = useCallback((userId) => {
     fetch(`/users/${userId}`, {
       method: 'GET',
       headers: {
@@ -70,7 +51,25 @@ export default function UserProvider({children}) {
       })
       .then((userData) => setUserData(userData))
       .catch((error) => console.error('Error fetching user details:', error));
-  }
+  }, [authToken]);
+
+  useEffect(() => {
+    console.log(user); // Log user details whenever the user state changes
+  }, [user]);
+
+  useEffect(() => {
+    // Fetch user details if authToken exists in sessionStorage
+    if (authToken) {
+      fetchUserDetails();
+
+    }
+  }, [authToken, fetchUserDetails]);
+
+  useEffect(() => {
+    if (authToken && user && user.logged_in_as) {
+      fetchUserById(user.logged_in_as);
+    }
+  }, [authToken, user, fetchUserById]);
 
   function Signup(name, email, password) {
     fetch('/signup', {
