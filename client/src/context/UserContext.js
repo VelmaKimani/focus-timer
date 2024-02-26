@@ -72,32 +72,39 @@ export default function UserProvider({children}) {
       .catch((error) => console.error('Error fetching user details:', error));
   }
 
-  function Signup(username,email,password){
+  function Signup(name, email, password) {
     fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((res) => {
         if (res.ok) {
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your account has been created, login.',
-            showConfirmButton: false,
-            timer: 1500,
+          return res.json(); // Parse JSON response
+        } else {
+          return res.json().then((data) => {
+            throw new Error(data.message || 'Failed to sign up');
           });
-          navigate('/login')
-        } else if (res.status === 400) {
-          Swal.fire({
-            icon: 'error',
-            text: 'Username or email already exists!',
-          })
         }
       })
-      .catch((err) => console.log(err))
+      .then((data) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your account has been created, login.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate('/login');
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Something went wrong!',
+        });
+      });
   }
 
   function Login(username, password) {

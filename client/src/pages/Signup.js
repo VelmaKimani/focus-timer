@@ -10,15 +10,15 @@ export default function Signup() {
   const {Signup}= useContext(UserContext)
 
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: ''
   });
 
   function handleSubmit(e){
     e.preventDefault();
-    const { username, email, password } = formData;
-    Signup(username, email, password);
+    const { name, email, password } = formData;
+    Signup(name, email, password);
   }
 
   function handleChange(e) {
@@ -36,9 +36,9 @@ export default function Signup() {
             <img src={user} alt="Username"/>
             <input 
             type="text" 
-            name='username' 
+            name='name' 
             placeholder="Username"
-            value={formData.username} 
+            value={formData.name} 
             onChange={handleChange}
             />
         </div>
