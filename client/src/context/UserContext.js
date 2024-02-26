@@ -107,13 +107,13 @@ export default function UserProvider({children}) {
       });
   }
 
-  function Login(username, password) {
+  function Login(name, password) {
     fetch('/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ name, password }),
     })
     .then((res) => {
       if (res.ok) {

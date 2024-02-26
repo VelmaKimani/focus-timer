@@ -13,15 +13,15 @@ export default function Login() {
   const {Login}= useContext(UserContext)
 
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     password: ''
   });
 
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      const { username, password } = formData;
-      Login(username, password);
+      const { name, password } = formData;
+      Login(name, password);
     },
     [formData, Login]
   );
@@ -41,9 +41,9 @@ export default function Login() {
           <img src={user} alt="Username"/>
           <input 
             type="text" 
-            name='username' 
+            name='name' 
             placeholder="Username"
-            value={formData.username} 
+            value={formData.name} 
             onChange={handleChange}
           />
         </div>
