@@ -1,12 +1,19 @@
 import '../Home.css';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { TasksContext } from '../context/TasksContext';
+import { UserContext } from '../context/UserContext';
 
 import addIcon from '../images/Add.svg'
 import check from '../images/check.svg'
 import deleteIcon from '../images/Trash.svg'
 
 export default function Home() {
+
+  const { createTask } = useContext(TasksContext);
+  const { user,userData } = useContext(UserContext);
+
+
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -84,6 +91,38 @@ export default function Home() {
     }
   };
 
+
+  // The code below is for add task dont Touch Please!!!
+  const [taskName, setTaskName] = useState('');
+  const [duration, setDuration] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleTaskSubmit = (event) => {
+    event.preventDefault();
+    // Prepare task data
+    const taskData = {
+      task_name: taskName,
+      duration: duration,
+      date: date,
+      category: category,
+      description: description,
+      status: 'ongoing', // Assuming default status is 'ongoing'
+      user_id: `${user.logged_in_as}`, // Replace with actual user id
+    };
+    // Call createTask function to add task
+    createTask(taskData);
+    // Clear form fields after submission
+    setTaskName('');
+    setDuration('');
+    setDate('');
+    setCategory('');
+    setDescription('');
+
+  };
+
   
   return (
     <div  className="home">
@@ -150,13 +189,14 @@ export default function Home() {
           </div>
           <img className='deleteIcon' src={deleteIcon} alt='delete'/>
         </div>
-        <form className='addtasksec'>
-          <input type='text' placeholder='What are you working on?'/>
-          <input type='text' placeholder='HH:MM'/>
-          <input type='date' placeholder='date'/>
-          <input type='text' placeholder='Categorize your task'/>
-          <input type='text' placeholder='Add a Note/Description?'/>
-          <button ><img src={addIcon}/>Add Task</button>
+        <form className='addtasksec' onSubmit={handleTaskSubmit}>
+          <input type='text' placeholder='What are you working on?' value={taskName} onChange={(e) => setTaskName(e.target.value)}/>
+          <input type='text' placeholder='Time in Minutes' value={duration} onChange={(e) => setDuration(e.target.value)}/>
+          <input type='time' placeholder='Current Time' value={time} onChange={(e) => setTime(e.target.value)}/>
+          <input type='date' placeholder='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+          <input type='text' placeholder='Categorize your task' value={category} onChange={(e) => setCategory(e.target.value)}/>
+          <input type='text' placeholder='Add a Note/Description?' value={description} onChange={(e) => setDescription(e.target.value)}/>
+          <button type='submit' ><img src={addIcon}/>Add Task</button>
         </form>
       </div>
     </div>
