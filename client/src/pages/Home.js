@@ -160,21 +160,19 @@ export default function Home() {
       <div className='taskscontainer'>
         <div className='tasktitle'>Tasks</div>
           {tasks.map(task => (
-          <div className='tasksec'>
-            <div key={task.id}>
+            <div className='tasksec' key={task.id}>
               <img  src={check} alt="check" />
               <div className='taskdetails'>
                 <div>{task.title}</div>
                 <div>{task.completed ? 'Completed' : 'Ongoing'}</div>
                 <div>{task.hours} hrs {task.minutes} mins {task.seconds} seconds</div>
-                <div>{task.date}</div>
+                <div>{new Date(task.date).toDateString()}</div>
                 <div>{task.category}</div>
                 <div>{task.description}</div>
               </div>
               {/* Implement delete task functionality here */}
               <img className='deleteIcon' src={deleteIcon} alt='delete'/>
             </div>
-          </div>
           ))}
         
         <form className='addtasksec' onSubmit={handleTaskSubmit}>
