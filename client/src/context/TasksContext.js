@@ -46,36 +46,38 @@ export default function TasksProvider({children}) {
   };
 
   const getTasks = () => {
-    fetch(`/get_tasks/${user.logged_in_as}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Failed to fetch tasks');
-        }
+    if (user && user.logged_in_as){
+      fetch(`/get_tasks/${user.logged_in_as}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
       })
-      .then((data) => {
-        console.log('Tasks fetched successfully:', data);
-        setTasks(data.tasks);
-      })
-      .catch((error) => {
-        console.error('Error fetching tasks:', error);
-        Swal.fire({
-          icon: 'error',
-          text: error.message || 'Error fetching tasks:',
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to fetch tasks');
+          }
+        })
+        .then((data) => {
+          console.log('Tasks fetched successfully:', data);
+          setTasks(data.tasks);
+        })
+        .catch((error) => {
+          console.error('Error fetching tasks:', error);
+          Swal.fire({
+            icon: 'error',
+            text: error.message || 'Error fetching tasks:',
+          });
         });
-      });
+    }
   };
 
   useEffect(() => {
     getTasks();
-  }, []); // Fetch tasks when component mounts
+  }, [getTasks]); // Fetch tasks when component mounts
 
   const contextData={ createTask, tasks}
 
