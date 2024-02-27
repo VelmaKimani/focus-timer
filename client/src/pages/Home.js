@@ -10,8 +10,8 @@ import deleteIcon from '../images/Trash.svg'
 
 export default function Home() {
 
-  const { createTask } = useContext(TasksContext);
-  const { user,userData } = useContext(UserContext);
+  const { createTask, tasks } = useContext(TasksContext);
+  const { user} = useContext(UserContext);
 
 
   const [hours, setHours] = useState(0);
@@ -159,42 +159,24 @@ export default function Home() {
       </div>
       <div className='taskscontainer'>
         <div className='tasktitle'>Tasks</div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
+          {tasks.map(task => (
+          <div className='tasksec'>
+            <div key={task.id}>
+              <img  src={check} alt="check" />
+              <div className='taskdetails'>
+                <div>{task.title}</div>
+                <div>{task.completed ? 'Completed' : 'Ongoing'}</div>
+                <div>{task.hours} hrs {task.minutes} mins {task.seconds} seconds</div>
+                <div>{task.date}</div>
+                <div>{task.category}</div>
+                <div>{task.description}</div>
+              </div>
+              {/* Implement delete task functionality here */}
+              <img className='deleteIcon' src={deleteIcon} alt='delete'/>
+            </div>
           </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
-          </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
-          </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
+          ))}
+        
         <form className='addtasksec' onSubmit={handleTaskSubmit}>
           <input type='text' placeholder='What are you working on?' value={title} onChange={(e) => setTitle(e.target.value)}/>
           <input type='number' placeholder='Hours' value={hrs} min={0} onChange={(e) => setHrs(e.target.value)}/>
