@@ -8,6 +8,8 @@ export default function TasksProvider({children}) {
 
   const { user,authToken} = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
+  const [newTaskCreated, setNewTaskCreated] = useState(false);
+
   
   const createTask = (taskData) => {
     fetch('/create_task', {
@@ -35,6 +37,7 @@ export default function TasksProvider({children}) {
           showConfirmButton: false,
           timer: 1500,
         });
+        setNewTaskCreated(true);
       })
       .catch((error) => {
         console.error('Error creating task:', error);
@@ -76,8 +79,17 @@ export default function TasksProvider({children}) {
   };
 
   useEffect(() => {
-    getTasks();
-  }, [getTasks]); // Fetch tasks when component mounts
+    if (authToken && user) {
+      getTasks();
+    }
+  }, [authToken, user, newTaskCreated]); // Fetch tasks when authToken or user changes, or when a new task is created
+  
+ // Fetch tasks when authToken or user changes
+  // Add cleanup function to clear tasks when unmounting or authToken/user changes
+  useEffect(() => {
+    return () => setTasks([]);
+  }, [authToken, user]);
+  
 
   const contextData={ createTask, tasks}
 
