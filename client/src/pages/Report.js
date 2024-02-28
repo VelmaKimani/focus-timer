@@ -43,6 +43,33 @@ export default function Report() {
     // Function to sort reports by date in descending order
     const sortedReports = [...filteredReports].sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    // Calculate total hours passed
+    const totalHours = sortedReports.reduce((acc, report) => {
+        const hours = parseInt(report.hours);
+        const minutes = parseInt(report.minutes);
+        const seconds = parseInt(report.seconds);
+        return acc + hours + minutes / 60 + seconds / 3600;
+    }, 0);
+
+    // Calculate unique dates and total days accessed
+    const uniqueDates = new Set(sortedReports.map(report => new Date(report.date).toDateString()));
+    const totalDaysAccessed = uniqueDates.size;
+
+    // Calculate day streak
+    let streak = 0;
+    let currentDate = new Date();
+    for (let i = sortedReports.length - 1; i >= 0; i--) {
+        const reportDate = new Date(sortedReports[i].date);
+        const diffInTime = currentDate.getTime() - reportDate.getTime();
+        const diffInDays = diffInTime / (1000 * 3600 * 24);
+        if (diffInDays <= 1) {
+            streak++;
+            currentDate = reportDate;
+        } else {
+            break;
+        }
+    }
+
 
   return (
     <section className="reportsect">
@@ -51,17 +78,17 @@ export default function Report() {
             <div className="cardssec">
                 <div className="card">
                     <img className="clock" src={clock} alt="hours focused"/>
-                    <div className="cardno">0</div>
+                    <div className="cardno1">{totalHours.toFixed(2)}</div>
                     <p className="cardtext">hours passed</p>
                 </div>
                 <div className="card">
                     <img className="clock" src={calendar} alt="calendar"/>
-                    <div className="cardno">1</div>
+                    <div className="cardno">{totalDaysAccessed}</div>
                     <p className="cardtext">days accessed</p>
                 </div>
                 <div className="card">
                     <img className="clock" src={sun} alt="streak"/>
-                    <div className="cardno">0</div>
+                    <div className="cardno">{streak}</div>
                     <p className="cardtext">day streak</p>
                 </div>
             </div>
