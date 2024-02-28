@@ -1,12 +1,22 @@
 import '../Home.css';
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { TasksContext } from '../context/TasksContext';
+import { UserContext } from '../context/UserContext';
 
 import addIcon from '../images/Add.svg'
 import check from '../images/check.svg'
 import deleteIcon from '../images/Trash.svg'
+import updateIcon from '../images/update.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+
+  const { createTask, tasks, deleteTask, updateTask } = useContext(TasksContext);
+  const { user} = useContext(UserContext);
+  const navigate = useNavigate();
+
+
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -84,6 +94,49 @@ export default function Home() {
     }
   };
 
+
+  // The code below is for add task don't Touch Please!!!
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [hrs, setHrs] = useState('');
+  const [mins,setMins]= useState('');
+  const [secnds,setSecnds]= useState('');
+
+  const handleTaskUpdate = (taskId) => {
+    // Use navigate to navigate to the update page
+    navigate(`/update/${taskId}`);
+  };
+
+
+
+  const handleTaskSubmit = (event) => {
+    event.preventDefault();
+    // Prepare task data
+    const taskData = {
+      title: title,
+      category: category,
+      description: description,
+      date: date,
+      hours: hrs,
+      minutes: mins,
+      seconds: secnds,
+      completed: false, // Assuming default status is false
+      user_id: `${user.logged_in_as}`, // Replace with actual user id
+    };
+    // Call createTask function to add task
+    createTask(taskData);
+    // Clear form fields after submission
+    setTitle('');
+    setCategory('');
+    setDescription('');
+    setDate('');
+    setHrs('');
+    setMins('');
+    setSecnds('');
+  };
+
   
   return (
     <div  className="home">
@@ -114,49 +167,38 @@ export default function Home() {
       </div>
       <div className='taskscontainer'>
         <div className='tasktitle'>Tasks</div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
-          </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
-          </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
-        <div className='tasksec'>
-            <img  src={check} alt="check" />
-          <div className='taskdetails'>
-            <div>Shopping</div>
-            <div>Ongoing</div>
-            <div>25 min</div>
-            <div>13/Feb/2024</div>
-            <div>Personal</div>
-            <div>Shop at Naivas</div>
-          </div>
-          <img className='deleteIcon' src={deleteIcon} alt='delete'/>
-        </div>
-        <form className='addtasksec'>
-          <input type='text' placeholder='What are you working on?'/>
-          <input type='text' placeholder='HH:MM'/>
-          <input type='date' placeholder='date'/>
-          <input type='text' placeholder='Categorize your task'/>
-          <input type='text' placeholder='Add a Note/Description?'/>
-          <button ><img src={addIcon}/>Add Task</button>
+          {tasks.map(task => (
+            <div className='tasksec' key={task.id}>
+              <img  src={check} alt="check" />
+              <div className='taskdetails'>
+                <div>{task.title}</div>
+                <div>{task.completed ? 'Completed' : 'Ongoing'}</div>
+                <div>{task.hours} hrs {task.minutes} mins {task.seconds} seconds</div>
+                <div>{new Date(task.date).toDateString()}</div>
+                <div>{task.category}</div>
+                <div>{task.description}</div>
+              </div>
+              {/* Implement update task functionality here */}
+              <img
+                className="updateIcon"
+                src={updateIcon}
+                alt="update"
+                onClick={() => handleTaskUpdate(task.id)}
+              />
+              {/* Implement delete task functionality here */}
+              <img className='deleteIcon' src={deleteIcon} alt='delete' onClick={() => deleteTask(task.id)} />
+            </div>
+          ))}
+        
+        <form className='addtasksec' onSubmit={handleTaskSubmit}>
+          <input type='text' placeholder='What are you working on?' value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <input type='number' placeholder='Hours' value={hrs} min={0} onChange={(e) => setHrs(e.target.value)}/>
+          <input type='number' placeholder='Minutes' value={mins} min={0} max={59} onChange={(e) => setMins(e.target.value)}/>
+          <input type='number' placeholder='Seconds' value={secnds} min={0} max={60} onChange={(e) => setSecnds(e.target.value)}/>
+          <input type='date' placeholder='date' value={date} onChange={(e) => setDate(e.target.value)}/>
+          <input type='text' placeholder='Categorize your task' value={category} onChange={(e) => setCategory(e.target.value)}/>
+          <input type='text' placeholder='Add a Note/Description?' value={description} onChange={(e) => setDescription(e.target.value)}/>
+          <button type='submit' ><img src={addIcon}/>Add Task</button>
         </form>
       </div>
     </div>
