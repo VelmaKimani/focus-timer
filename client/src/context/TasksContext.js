@@ -90,8 +90,40 @@ export default function TasksProvider({children}) {
     return () => setTasks([]);
   }, [authToken, user]);
   
+  const deleteTask = (taskId) => {
+    fetch(`/delete_task/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Remove the deleted task from the tasks list
+          setTasks(tasks.filter(task => task.id !== taskId));
+          // Show success message
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Task Deleted Successfully.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          throw new Error('Failed to delete task');
+        }
+      })
+      .catch((error) => {
+        console.error('Error deleting task:', error);
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Error deleting task:',
+        });
+      });
+  };
 
-  const contextData={ createTask, tasks}
+  const contextData={ createTask, tasks, deleteTask}
 
   return (
     <TasksContext.Provider value={contextData}>{children}</TasksContext.Provider>)
