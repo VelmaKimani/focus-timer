@@ -40,6 +40,9 @@ export default function Report() {
         setSelectedCategory(category);
     }
 
+    // Function to sort reports by date in descending order
+    const sortedReports = [...filteredReports].sort((a, b) => new Date(b.date) - new Date(a.date));
+
 
   return (
     <section className="reportsect">
@@ -90,7 +93,7 @@ export default function Report() {
                             <tr className="trspacer"></tr>
                         </thead>
                         <tbody>
-                            {selectedCategory === 'All' ? reports.map((report, index) => (
+                            {selectedCategory === 'All' ? sortedReports.map((report, index) => (
                                         <tr key={index}>
                                             <td>
                                                 <p>{new Date(report.date).toDateString()}</p>
