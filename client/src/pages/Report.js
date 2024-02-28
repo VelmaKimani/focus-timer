@@ -65,11 +65,6 @@ export default function Report() {
         </div>
         <div className="logcont">
             <h3>Activity Log </h3>
-            <div className="filter">
-                <button>Daily</button>
-                <button>Weekly</button>
-                <button> Monthly</button>
-            </div>
             <div class="dropdown">
                 <div class="dropbtn">Category</div>
                 <div class="dropdown-content">
