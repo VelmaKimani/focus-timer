@@ -14,6 +14,8 @@ export default function Report() {
     const { reports,getReports } = useContext(ReportContext);
     const { user} = useContext(UserContext);
     const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [filteredReports, setFilteredReports] = useState([]);
 
     // Function to extract unique categories from reports
     useEffect(() => {
@@ -22,6 +24,21 @@ export default function Report() {
             setCategories(uniqueCategories);
         }
     }, [reports]);
+
+    // Function to filter reports based on selected category
+    useEffect(() => {
+        if (selectedCategory === 'All') {
+            setFilteredReports(reports);
+        } else {
+            const filtered = reports.filter(report => report.category === selectedCategory);
+            setFilteredReports(filtered);
+        }
+    }, [selectedCategory, reports]);
+
+    // Function to handle category selection change
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+    }
 
 
   return (
@@ -56,9 +73,9 @@ export default function Report() {
             <div class="dropdown">
                 <div class="dropbtn">Category</div>
                 <div class="dropdown-content">
-                    <a href="#">All</a>
+                    <a href="#" onClick={() => handleCategoryChange('All')}>All</a>
                     {categories.map((category, index) => (
-                        <a href="#" key={index}>{category}</a>
+                        <a href="#" key={index} onClick={() => handleCategoryChange(category)}>{category}</a>
                     ))}
                 </div>
             </div>
@@ -78,20 +95,32 @@ export default function Report() {
                             <tr className="trspacer"></tr>
                         </thead>
                         <tbody>
-                            {reports &&
-                                        reports.map((report, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <p>{new Date(report.date).toDateString()}</p>
-                                                </td>
-                                                <td>{report.title}</td>
-                                                <td>
-                                                    {report.hours} hrs {report.minutes} mins {report.seconds} seconds
-                                                </td>
-                                                <td>{report.category}</td>
-                                                <td>{report.description}</td>
-                                            </tr>
-                                        ))}
+                            {selectedCategory === 'All' ? reports.map((report, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <p>{new Date(report.date).toDateString()}</p>
+                                            </td>
+                                            <td>{report.title}</td>
+                                            <td>
+                                                {report.hours} hrs {report.minutes} mins {report.seconds} seconds
+                                            </td>
+                                            <td>{report.category}</td>
+                                            <td>{report.description}</td>
+                                        </tr>
+                                    )) : filteredReports.map((report, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <p>{new Date(report.date).toDateString()}</p>
+                                            </td>
+                                            <td>{report.title}</td>
+                                            <td>
+                                                {report.hours} hrs {report.minutes} mins {report.seconds} seconds
+                                            </td>
+                                            <td>{report.category}</td>
+                                            <td>{report.description}</td>
+                                        </tr>
+                                    ))
+                            }
                         </tbody>  
                     </table>
                 </div>  
