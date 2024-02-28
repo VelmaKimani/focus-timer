@@ -10,7 +10,7 @@ import deleteIcon from '../images/Trash.svg'
 
 export default function Home() {
 
-  const { createTask, tasks } = useContext(TasksContext);
+  const { createTask, tasks, deleteTask } = useContext(TasksContext);
   const { user} = useContext(UserContext);
 
 
@@ -171,7 +171,7 @@ export default function Home() {
                 <div>{task.description}</div>
               </div>
               {/* Implement delete task functionality here */}
-              <img className='deleteIcon' src={deleteIcon} alt='delete'/>
+              <img className='deleteIcon' src={deleteIcon} alt='delete' onClick={() => deleteTask(task.id)} />
             </div>
           ))}
         
