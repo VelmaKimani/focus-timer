@@ -123,7 +123,42 @@ export default function TasksProvider({children}) {
       });
   };
 
-  const contextData={ createTask, tasks, deleteTask}
+  const updateTask = (taskId, updatedTaskData) => {
+    fetch(`/update_task/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify(updatedTaskData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Update the tasks list with the updated task data
+          setTasks(tasks.map(task => task.id === taskId ? { ...task, ...updatedTaskData } : task));
+          // Show success message
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Task Updated Successfully.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          throw new Error('Failed to update task');
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating task:', error);
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Error updating task:',
+        });
+      });
+  };
+  
+
+  const contextData={ createTask, tasks, deleteTask, updateTask}
 
   return (
     <TasksContext.Provider value={contextData}>{children}</TasksContext.Provider>)
