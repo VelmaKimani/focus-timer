@@ -62,10 +62,10 @@ export default function UpdateTaskForm() {
             formattedDate = parsedDate ? parsedDate.toISOString() : '';
         }
 
-        updateTask(taskId, { title, date: formattedDate, hours, minutes, seconds, category, description, completed });
-        
+        updateTask(taskId, { title, date: formattedDate, hours, minutes, seconds, category, description, completed });        
         // Navigate to a different route after updating task
         navigate('/');
+        
     };
 
     // Function to handle input changes

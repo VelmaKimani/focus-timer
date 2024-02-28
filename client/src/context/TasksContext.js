@@ -134,8 +134,6 @@ export default function TasksProvider({children}) {
     })
       .then((response) => {
         if (response.ok) {
-          // Update the tasks list with the updated task data
-          setTasks(tasks.map(task => task.id === taskId ? { ...task, ...updatedTaskData } : task));
           // Show success message
           Swal.fire({
             position: 'center',
@@ -144,9 +142,17 @@ export default function TasksProvider({children}) {
             showConfirmButton: false,
             timer: 1500,
           });
+          // Return the response for the next `then` block
+          return response.json();
         } else {
           throw new Error('Failed to update task');
         }
+      })
+      .then((data) => {
+        // Update the tasks list with the updated task data
+        setTasks(tasks.map((task) => (task.id === taskId ? { ...task, ...updatedTaskData } : task)));
+        // Trigger getTasks to refresh the tasks list
+        getTasks();
       })
       .catch((error) => {
         console.error('Error updating task:', error);
@@ -156,6 +162,7 @@ export default function TasksProvider({children}) {
         });
       });
   };
+
   
 
   const contextData={ createTask, tasks, deleteTask, updateTask}
