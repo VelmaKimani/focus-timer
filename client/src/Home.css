@@ -119,6 +119,16 @@
     word-wrap: break-word; /* Wrap long text */
     font-size: 14px; /* Adjust font size if necessary */
 }
+.updateIcon{
+    margin-left: 10px;
+    height: 16px;
+    padding: 10px;
+}
+.updateIcon:hover{
+    background-color: rgb(69, 137, 226);
+    border-radius: 8px;
+    transition: 0.15s;
+}
 .deleteIcon{
     margin-left: 10px;
     height: 16px;

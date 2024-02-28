@@ -7,10 +7,11 @@ import { UserContext } from '../context/UserContext';
 import addIcon from '../images/Add.svg'
 import check from '../images/check.svg'
 import deleteIcon from '../images/Trash.svg'
+import updateIcon from '../images/update.svg'
 
 export default function Home() {
 
-  const { createTask, tasks, deleteTask } = useContext(TasksContext);
+  const { createTask, tasks, deleteTask, updateTask } = useContext(TasksContext);
   const { user} = useContext(UserContext);
 
 
@@ -101,6 +102,10 @@ export default function Home() {
   const [mins,setMins]= useState('');
   const [secnds,setSecnds]= useState('');
 
+  const handleTaskUpdate = (taskId, updatedTaskData) => {
+    updateTask(taskId, updatedTaskData);
+  };
+
 
 
   const handleTaskSubmit = (event) => {
@@ -170,6 +175,13 @@ export default function Home() {
                 <div>{task.category}</div>
                 <div>{task.description}</div>
               </div>
+              {/* Implement update task functionality here */}
+              <img
+                className="updateIcon"
+                src={updateIcon}
+                alt="update"
+                onClick={() => handleTaskUpdate(task.id, { completed: !task.completed })}
+              />
               {/* Implement delete task functionality here */}
               <img className='deleteIcon' src={deleteIcon} alt='delete' onClick={() => deleteTask(task.id)} />
             </div>
