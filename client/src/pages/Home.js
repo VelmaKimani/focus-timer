@@ -8,11 +8,13 @@ import addIcon from '../images/Add.svg'
 import check from '../images/check.svg'
 import deleteIcon from '../images/Trash.svg'
 import updateIcon from '../images/update.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
 
   const { createTask, tasks, deleteTask, updateTask } = useContext(TasksContext);
   const { user} = useContext(UserContext);
+  const navigate = useNavigate();
 
 
   const [hours, setHours] = useState(0);
@@ -102,8 +104,9 @@ export default function Home() {
   const [mins,setMins]= useState('');
   const [secnds,setSecnds]= useState('');
 
-  const handleTaskUpdate = (taskId, updatedTaskData) => {
-    updateTask(taskId, updatedTaskData);
+  const handleTaskUpdate = (taskId) => {
+    // Use navigate to navigate to the update page
+    navigate(`/update/${taskId}`);
   };
 
 
@@ -180,7 +183,7 @@ export default function Home() {
                 className="updateIcon"
                 src={updateIcon}
                 alt="update"
-                onClick={() => handleTaskUpdate(task.id, { completed: !task.completed })}
+                onClick={() => handleTaskUpdate(task.id)}
               />
               {/* Implement delete task functionality here */}
               <img className='deleteIcon' src={deleteIcon} alt='delete' onClick={() => deleteTask(task.id)} />
