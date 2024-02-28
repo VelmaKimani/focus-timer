@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import '../Report.css'
 
 import clock from '../images/clock.svg'
 import calendar from '../images/Calendar.svg'
 import sun from '../images/sun.svg'
+import { ReportContext } from '../context/ReportContext'
+import { UserContext } from '../context/UserContext';
+
+
 
 export default function Report() {
+
+    const { reports,getReports } = useContext(ReportContext);
+    const { user} = useContext(UserContext);
+
+
   return (
     <section className="reportsect">
         <div className="activitycont">
@@ -48,49 +57,37 @@ export default function Report() {
                 <h4>Details:</h4>
                 <div className="tablecont">
                     <table>
-                        <tr className="trspacer"></tr>
-                        <tr>
-                          <th style={{width:'15%'}}>Date</th>
-                            <th style={{width:'25%'}}>Project/Task</th>
-                            <th style={{width:'10%'}}>Time</th>
-                            <th style={{width:'15%'}}>Category</th>
-                            <th style={{width:'35%'}}>Description</th>
-                        </tr>
-                        <tr className="trspacer"></tr>
-                        <tr className="row">
-                            <td>
-                                <p>13/Feb/2024</p>
-                            </td>
-                            <td>Shopping</td>
-                            <td>12 hrs</td>
-                            <td>Personal</td>
-                            <td>Shop at Naivas</td>
-                        </tr>
-                        <tr className="trspacer"></tr>
-                        <tr className="row">
-                            <td>
-                                <p>13/Feb/2024</p>
-                            </td>
-                            <td>Shopping</td>
-                            <td>12 hrs</td>
-                            <td>Personal</td>
-                            <td>Shop at Naivas</td>
-                        </tr>
-                        <tr className="trspacer"></tr>
-                        <tr className="row">
-                            <td>
-                                <p>13/Feb/2024</p>
-                            </td>
-                            <td>Shopping</td>
-                            <td>12 hrs</td>
-                            <td>Personal</td>
-                            <td>Shop at Naivas</td>
-                        </tr>
-                        <tr className="trspacer"></tr>
+                        <thead>
+                            <tr className="trspacer"></tr>
+                            <tr>
+                                <th style={{width:'15%'}}>Date</th>
+                                <th style={{width:'25%'}}>Project/Task</th>
+                                <th style={{width:'10%'}}>Time</th>
+                                <th style={{width:'15%'}}>Category</th>
+                                <th style={{width:'35%'}}>Description</th>
+                            </tr>
+                            <tr className="trspacer"></tr>
+                        </thead>
+                        <tbody>
+                            {reports &&
+                                        reports.map((report, index) => (
+                                            <tr key={index}>
+                                                <td>
+                                                    <p>{new Date(report.date).toDateString()}</p>
+                                                </td>
+                                                <td>{report.title}</td>
+                                                <td>
+                                                    {report.hours} hrs {report.minutes} mins {report.seconds} seconds
+                                                </td>
+                                                <td>{report.category}</td>
+                                                <td>{report.description}</td>
+                                            </tr>
+                                        ))}
+                        </tbody>  
                     </table>
                 </div>  
             </div>
         </div>
     </section>
-  )
+  );
 }
