@@ -13,6 +13,15 @@ export default function Report() {
 
     const { reports,getReports } = useContext(ReportContext);
     const { user} = useContext(UserContext);
+    const [categories, setCategories] = useState([]);
+
+    // Function to extract unique categories from reports
+    useEffect(() => {
+        if (reports && reports.length > 0) {
+            const uniqueCategories = [...new Set(reports.map(report => report.category))];
+            setCategories(uniqueCategories);
+        }
+    }, [reports]);
 
 
   return (
@@ -48,9 +57,9 @@ export default function Report() {
                 <div class="dropbtn">Category</div>
                 <div class="dropdown-content">
                     <a href="#">All</a>
-                    <a href="#">Personal</a>
-                    <a href="#">Work</a>
-                    <a href="#">Family</a>
+                    {categories.map((category, index) => (
+                        <a href="#" key={index}>{category}</a>
+                    ))}
                 </div>
             </div>
             <div>
