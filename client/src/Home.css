@@ -136,7 +136,7 @@
         padding: 10px;
 }
 .updateIcon:hover{
-        background-color: rgb(67, 105, 230);
+        background-color: #2878c8;
         border-radius: 8px;
         transition: 0.15s;
 }
