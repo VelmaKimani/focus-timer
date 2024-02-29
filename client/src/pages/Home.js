@@ -4,16 +4,22 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { TasksContext } from "../context/TasksContext";
 import { UserContext } from "../context/UserContext";
+import { ReportContext } from '../context/ReportContext'
+
 import addIcon from "../images/Add.svg";
 import axios from "axios";
 import check from "../images/check.svg";
 import deleteIcon from "../images/Trash.svg";
 import updateIcon from "../images/update.svg";
+import archiveIcon from "../images/archive.svg";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Home() {
-  const { createTask, tasks, deleteTask, updateTask } =
+  const { createTask, tasks, deleteTask, updateTaskCompleted } =
     useContext(TasksContext);
+  const { getReports } = useContext(ReportContext);
+
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -67,6 +73,10 @@ export default function Home() {
             clearInterval(interval);
             setIsRunning(false);
             alert("Time is up!");
+            // Update the completion status of the selected task
+            if (selectedTask) {
+              updateTaskCompleted(selectedTask.id);
+            }
             return { hours: 0, minutes: 0, seconds: 0 };
           }
 
@@ -150,6 +160,74 @@ export default function Home() {
     setSecnds("");
   };
 
+  const handleArchiveTask = () => {
+    if (selectedTask) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to archive this task!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, archive it!',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch('/create_report', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: selectedTask.title,
+              category: selectedTask.category,
+              description: selectedTask.description,
+              date: selectedTask.date,
+              hours: selectedTask.hours,
+              minutes: selectedTask.minutes,
+              seconds: selectedTask.seconds,
+              completed: selectedTask.completed,
+              user_id: user.logged_in_as, // Assuming you have user data available
+            }),
+          })
+          .then((response) => {
+            if (response.ok) {
+              // Remove the archived task from the UI
+              deleteTask(selectedTask.id);
+              setSelectedTask(null);
+              Swal.fire(
+                'Archived!',
+                'Your task has been archived.',
+                'success'
+              )
+              getReports()
+              navigate('/report')
+            } else {
+              console.error('Failed to archive task');
+              Swal.fire(
+                'Error!',
+                'Failed to archive task.',
+                'error'
+              );
+            }
+          })
+          .catch((error) => {
+            console.error('Error archiving task:', error);
+            Swal.fire(
+              'Error!',
+              'An error occurred while archiving the task.',
+              'error'
+            );
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Your task is safe :)',
+            'error'
+          );
+        }
+      });
+    }
+  };
+
   return (
     <div className="home">
       <div className="timercontainer">
@@ -186,8 +264,9 @@ export default function Home() {
             className="tasksec"
             onClick={() => handleTaskSelect(task)}
           >
-            {" "}
-            <img src={check} alt="check" />
+            {task.completed? <img src={archiveIcon} className="archiveIcon" onClick={handleArchiveTask}/>: ''}
+            {task.completed? <img src={check} className="greencheck" alt="check" /> : <img src={check} alt="check" />}
+
             <div className="taskdetails">
               <div>{task.title}</div>
               <div>{task.completed ? "Completed" : "Ongoing"}</div>
@@ -255,7 +334,6 @@ export default function Home() {
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
-
               <div className="timelines">
                 <input
                   type="number"

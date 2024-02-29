@@ -4,7 +4,7 @@
     margin: auto;
     margin-top: 70px;
     }
-    .timercontainer{
+.timercontainer{
     width: 100%;
     min-width: 500px;
     height: 519px;
@@ -12,30 +12,34 @@
     border-radius: 8px;
     padding-top: 20px;
     }
-    .breaksect{
+.breaksect{
     display: flex;
     width: 304px;
     justify-content: space-between;
     margin: auto;
     margin-top: 40px;
-    }
-    .timer{
-    width: 500px;
+}
+.timer{
+    width: 600px;
+
     height: 141px;
     background-color: #ECECEC;
     color: black;
     margin: auto;
     border-radius: 8px;
     margin-top: 20px;
-    }
-    .time{
-    width: 400px;
+}
+.time{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
     height: 121px;
     font-size: 96px;
     font-weight: 700;
     margin: auto;
-    }
-    .start{
+}
+.start{
     display: flex;
     justify-content: center; /* align horizontally */
     align-items: center; /* align vertically */
@@ -49,8 +53,8 @@
     font-size: 64px;
     font-weight: 700;
     padding: 2px;
-    }
-    .duration{
+}
+.duration{
     width: 215px;
     margin-left: 325px;
     /* margin: auto; */
@@ -58,15 +62,15 @@
     display: flex;
     justify-content: space-between; /* Center items horizontally */
     align-items: flex-end;
-    }
-    .timeinput{
+}
+.timeinput{
     width: 575px;
     margin: auto;
     display: flex;
     justify-content: center; /* Center items horizontally */
     align-items: left;
-    }
-    .timeinput input{
+}
+.timeinput input{
     width: 100px;
     margin: 0 10px;
     border: 2px solid #A7C7E7;
@@ -83,8 +87,8 @@
     .taskscontainer{
     margin-top: 50px;
     /* min-width: 600px; */
-    }
-    .tasktitle{
+ }
+.tasktitle{
     display: flex;
     align-items: center;
     height: 45px;
@@ -101,8 +105,19 @@
     background-color: white;
     border-radius: 8px;
     padding: 10px;
-    }
-    .tasksec img{
+    position: relative;
+}
+.archiveIcon{
+    position:absolute;
+    top:9px;
+    left:-55px;
+    cursor:pointer;
+    border-radius: 24px;
+    background-color: white;
+    border: 2px solid #2878c8;
+}
+
+.tasksec img{
     margin-right: 10px;
     }
     .taskdetails{
@@ -113,8 +128,23 @@
     /* background-color: #A7C7E7; */
     padding: 5px;
     border-radius: 8px;
-    }
-    .deleteIcon{
+}
+.taskdetails:hover{
+    background-color: #A7C7E7;
+    transition: 0.15s;
+}
+
+.updateIcon{
+        margin-left: 10px;
+        height: 16px;
+        padding: 10px;
+}
+.updateIcon:hover{
+        background-color: #2878c8;
+        border-radius: 8px;
+        transition: 0.15s;
+}
+.deleteIcon{
     margin-left: 10px;
     height: 16px;
     padding: 10px;
@@ -139,8 +169,14 @@
     border: 2px solid #A7C7E7;
     margin-bottom: 20px;
     padding-left: 20px;
-    }
-    @media (max-width: 768px)and (min-width:331px){
+}
+.greencheck{
+    height: 24px;
+    background-color: rgb(82, 240, 77);
+    border-radius: 16px;
+    margin-top: 6px;
+}
+@media (max-width: 768px)and (min-width:331px){
     .taskdetails{
     display: flex;
     flex-wrap: wrap;
@@ -155,8 +191,8 @@
     flex: 0 0 calc(50% - 10px); /* each item takes up 50% of the container width minus some spacing */
     margin-bottom: 10px; /* add some space between items */
     }
-    }
-    .datetime {
+}
+.datetime {
     display: grid;
     grid-template-columns: repeat(4, auto);
     /* grid-auto-rows: 3em; */
@@ -165,14 +201,15 @@
     padding: .2em;
     width: 590px;
     position: relative;
-    }
-    .timelines {
+}
+.timelines {
     /* margin: auto; */
     /* margin-top: 20px; */
     display: flex;
     justify-content: space-between; /* Center items horizontally */
-    align-items: flex-end;
-    
-    }
+    align-items: flex-end; 
+}
+
+
     
     
