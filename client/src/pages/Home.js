@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { TasksContext } from "../context/TasksContext";
 import { UserContext } from "../context/UserContext";
 import { ReportContext } from '../context/ReportContext'
+
 import addIcon from "../images/Add.svg";
 import axios from "axios";
 import check from "../images/check.svg";
@@ -265,6 +266,7 @@ export default function Home() {
           >
             {task.completed? <img src={archiveIcon} className="archiveIcon" onClick={handleArchiveTask}/>: ''}
             {task.completed? <img src={check} className="greencheck" alt="check" /> : <img src={check} alt="check" />}
+
             <div className="taskdetails">
               <div>{task.title}</div>
               <div>{task.completed ? "Completed" : "Ongoing"}</div>
