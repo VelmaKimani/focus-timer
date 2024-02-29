@@ -112,8 +112,8 @@ export default function Report() {
                             <tr className="trspacer"></tr>
                             <tr>
                                 <th style={{width:'15%'}}>Date</th>
-                                <th style={{width:'25%'}}>Project/Task</th>
-                                <th style={{width:'10%'}}>Time</th>
+                                <th style={{width:'15%'}}>Project/Task</th>
+                                <th style={{width:'20%'}}>Time</th>
                                 <th style={{width:'15%'}}>Category</th>
                                 <th style={{width:'35%'}}>Description</th>
                             </tr>
