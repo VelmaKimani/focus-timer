@@ -9,6 +9,7 @@ import axios from "axios";
 import check from "../images/check.svg";
 import deleteIcon from "../images/Trash.svg";
 import updateIcon from "../images/update.svg";
+import archiveIcon from "../images/archive.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
@@ -190,7 +191,7 @@ export default function Home() {
             className="tasksec"
             onClick={() => handleTaskSelect(task)}
           >
-            {" "}
+            {task.completed? <img src={archiveIcon} className="archiveIcon"/>: ''}
             {task.completed? <img src={check} className="greencheck" alt="check" /> : <img src={check} alt="check" />}
             <div className="taskdetails">
               <div>{task.title}</div>
