@@ -187,7 +187,7 @@ export default function Home() {
             onClick={() => handleTaskSelect(task)}
           >
             {" "}
-            <img src={check} alt="check" />
+            {task.completed? <img src={check} className="greencheck" alt="check" /> : <img src={check} alt="check" />}
             <div className="taskdetails">
               <div>{task.title}</div>
               <div>{task.completed ? "Completed" : "Ongoing"}</div>
