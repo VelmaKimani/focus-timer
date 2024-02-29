@@ -38,6 +38,8 @@ export default function TasksProvider({children}) {
           timer: 1500,
         });
         setNewTaskCreated(true);
+        // Trigger getTasks to refresh the tasks list
+        getTasks();
       })
       .catch((error) => {
         console.error('Error creating task:', error);
@@ -198,7 +200,7 @@ export default function TasksProvider({children}) {
   };
 
 
-  const contextData={ createTask, tasks, deleteTask, updateTask, updateTaskCompleted}
+  const contextData={ createTask, tasks, deleteTask, updateTask, updateTaskCompleted, getTasks}
 
   return (
     <TasksContext.Provider value={contextData}>{children}</TasksContext.Provider>)
