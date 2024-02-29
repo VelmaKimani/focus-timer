@@ -114,6 +114,16 @@
     padding: 5px;
     border-radius: 8px;
     }
+    .updateIcon{
+        margin-left: 10px;
+        height: 16px;
+        padding: 10px;
+    }
+    .updateIcon:hover{
+        background-color: rgb(67, 105, 230);
+        border-radius: 8px;
+        transition: 0.15s;
+    }
     .deleteIcon{
     margin-left: 10px;
     height: 16px;
