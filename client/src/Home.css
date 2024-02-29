@@ -3,23 +3,23 @@
     min-width: 500px;
     margin: auto;
     margin-top: 70px;
-    }
-    .timercontainer{
+}
+.timercontainer{
     width: 100%;
     min-width: 500px;
     height: 519px;
     background-color: white;
     border-radius: 8px;
     padding-top: 20px;
-    }
-    .breaksect{
+}
+.breaksect{
     display: flex;
     width: 304px;
     justify-content: space-between;
     margin: auto;
     margin-top: 40px;
-    }
-    .timer{
+}
+.timer{
     width: 500px;
     height: 141px;
     background-color: #ECECEC;
@@ -27,15 +27,15 @@
     margin: auto;
     border-radius: 8px;
     margin-top: 20px;
-    }
-    .time{
+}
+.time{
     width: 400px;
     height: 121px;
     font-size: 96px;
     font-weight: 700;
     margin: auto;
-    }
-    .start{
+}
+.start{
     display: flex;
     justify-content: center; /* align horizontally */
     align-items: center; /* align vertically */
@@ -49,8 +49,8 @@
     font-size: 64px;
     font-weight: 700;
     padding: 2px;
-    }
-    .duration{
+}
+.duration{
     width: 215px;
     margin-left: 325px;
     /* margin: auto; */
@@ -58,33 +58,33 @@
     display: flex;
     justify-content: space-between; /* Center items horizontally */
     align-items: flex-end;
-    }
-    .timeinput{
+}
+.timeinput{
     width: 575px;
     margin: auto;
     display: flex;
     justify-content: center; /* Center items horizontally */
     align-items: left;
-    }
-    .timeinput input{
+}
+.timeinput input{
     width: 100px;
     margin: 0 10px;
     border: 2px solid #A7C7E7;
     line-height: 30px;
     border-radius: 8px;
     padding-left: 5px;
-    }
-    .p{
+}
+.p{
     font-size: 32px;
     text-align: center;
     font-weight: 500;
     margin-top: 60px;
-    }
-    .taskscontainer{
+}
+.taskscontainer{
     margin-top: 50px;
     /* min-width: 600px; */
-    }
-    .tasktitle{
+ }
+.tasktitle{
     display: flex;
     align-items: center;
     height: 45px;
@@ -94,18 +94,18 @@
     font-size: 32px;
     font-weight: 500;
     padding: 10px;
-    }
-    .tasksec{
+}
+.tasksec{
     display: flex;
     margin-top: 20px;
     background-color: white;
     border-radius: 8px;
     padding: 10px;
-    }
-    .tasksec img{
+}
+.tasksec img{
     margin-right: 10px;
-    }
-    .taskdetails{
+}
+.taskdetails{
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -113,44 +113,44 @@
     /* background-color: #A7C7E7; */
     padding: 5px;
     border-radius: 8px;
-    }
-    .updateIcon{
+}
+.updateIcon{
         margin-left: 10px;
         height: 16px;
         padding: 10px;
-    }
-    .updateIcon:hover{
+}
+.updateIcon:hover{
         background-color: rgb(67, 105, 230);
         border-radius: 8px;
         transition: 0.15s;
-    }
-    .deleteIcon{
+}
+.deleteIcon{
     margin-left: 10px;
     height: 16px;
     padding: 10px;
-    }
-    .deleteIcon:hover{
+}
+.deleteIcon:hover{
     background-color: rgb(219, 88, 88);
     border-radius: 8px;
     transition: 0.15s;
-    }
-    .addtasksec{
+}
+.addtasksec{
     width: 100%;
     height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 50px;
-    }
-    .addtasksec input{
+}
+.addtasksec input{
     width: 80%;
     height: 62px;
     border-radius: 8px;
     border: 2px solid #A7C7E7;
     margin-bottom: 20px;
     padding-left: 20px;
-    }
-    @media (max-width: 768px)and (min-width:331px){
+}
+@media (max-width: 768px)and (min-width:331px){
     .taskdetails{
     display: flex;
     flex-wrap: wrap;
@@ -166,7 +166,7 @@
     margin-bottom: 10px; /* add some space between items */
     }
     }
-    .datetime {
+.datetime {
     display: grid;
     grid-template-columns: repeat(4, auto);
     /* grid-auto-rows: 3em; */
@@ -175,14 +175,14 @@
     padding: .2em;
     width: 590px;
     position: relative;
-    }
-    .timelines {
+}
+.timelines {
     /* margin: auto; */
     /* margin-top: 20px; */
     display: flex;
     justify-content: space-between; /* Center items horizontally */
-    align-items: flex-end;
-    
-    }
+    align-items: flex-end; 
+}
+
     
     
