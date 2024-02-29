@@ -57,8 +57,10 @@ export default function ReportProvider({children}) {
     return () => setReports([]);
   }, [authToken, user]);
 
+  
 
-  const contextData={reports}
+
+  const contextData={reports, getReports}
 
   return (
     <ReportContext.Provider value={contextData}>{children}</ReportContext.Provider>)
