@@ -89,7 +89,7 @@ export default function Report() {
                 <div className="card">
                     <img className="clock" src={sun} alt="streak"/>
                     <div className="cardno">{streak}</div>
-                    <p className="cardtext">day streak</p>
+                    <p className="cardtext">activity streak</p>
                 </div>
             </div>
         </div>
