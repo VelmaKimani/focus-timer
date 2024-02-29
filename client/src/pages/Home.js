@@ -12,7 +12,7 @@ import updateIcon from "../images/update.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { createTask, tasks, deleteTask, updateTask } =
+  const { createTask, tasks, deleteTask, updateTaskCompleted } =
     useContext(TasksContext);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -67,6 +67,10 @@ export default function Home() {
             clearInterval(interval);
             setIsRunning(false);
             alert("Time is up!");
+            // Update the completion status of the selected task
+            if (selectedTask) {
+              updateTaskCompleted(selectedTask.id);
+            }
             return { hours: 0, minutes: 0, seconds: 0 };
           }
 

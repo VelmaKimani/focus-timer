@@ -163,9 +163,42 @@ export default function TasksProvider({children}) {
       });
   };
 
-  
+  const updateTaskCompleted = (taskId) => {
+    fetch(`/update_task_completed/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({ completed: true }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Show success message
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Task Completed.',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // Trigger getTasks to refresh the tasks list
+          getTasks();
+        } else {
+          throw new Error('Failed to update task completion status');
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating task completion status:', error);
+        Swal.fire({
+          icon: 'error',
+          text: error.message || 'Error updating task completion status:',
+        });
+      });
+  };
 
-  const contextData={ createTask, tasks, deleteTask, updateTask}
+
+  const contextData={ createTask, tasks, deleteTask, updateTask, updateTaskCompleted}
 
   return (
     <TasksContext.Provider value={contextData}>{children}</TasksContext.Provider>)
