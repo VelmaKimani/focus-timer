@@ -55,18 +55,26 @@ export default function Report() {
     const uniqueDates = new Set(sortedReports.map(report => new Date(report.date).toDateString()));
     const totalDaysAccessed = uniqueDates.size;
 
-    // Calculate day streak
-    let streak = 0;
-    let currentDate = new Date();
-    for (let i = sortedReports.length - 1; i >= 0; i--) {
-        const reportDate = new Date(sortedReports[i].date);
-        const diffInTime = currentDate.getTime() - reportDate.getTime();
-        const diffInDays = diffInTime / (1000 * 3600 * 24);
-        if (diffInDays <= 1) {
-            streak++;
-            currentDate = reportDate;
+    // Initialize a Map to store the frequency of each date
+let dateFrequencyMap = new Map();
+
+    // Loop through sortedReports to count the frequency of each date
+    for (let i = 0; i < sortedReports.length; i++) {
+        const reportDate = new Date(sortedReports[i].date).toDateString(); // Convert to date string for comparison
+        if (dateFrequencyMap.has(reportDate)) {
+            // If the date is already in the map, increment its frequency
+            dateFrequencyMap.set(reportDate, dateFrequencyMap.get(reportDate) + 1);
         } else {
-            break;
+            // If the date is not in the map, add it with frequency 1
+            dateFrequencyMap.set(reportDate, 1);
+        }
+    }
+
+    // Find the maximum frequency
+    let maxFrequency = 0;
+    for (let frequency of dateFrequencyMap.values()) {
+        if (frequency > maxFrequency) {
+            maxFrequency = frequency;
         }
     }
 
@@ -88,7 +96,7 @@ export default function Report() {
                 </div>
                 <div className="card">
                     <img className="clock" src={sun} alt="streak"/>
-                    <div className="cardno">{streak}</div>
+                    <div className="cardno">{maxFrequency}</div>
                     <p className="cardtext">activity streak</p>
                 </div>
             </div>
